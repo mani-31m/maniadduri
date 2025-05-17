@@ -1,0 +1,57 @@
+import time
+
+class Question:
+    def __init__(self, prompt, options, correct_answer):
+        self.prompt = prompt
+        self.options = options
+        self.correct_answer = correct_answer
+
+    def ask(self):
+        print(self.prompt)
+        for i, option in enumerate(self.options, 1):
+            print(f"{i}. {option}")
+
+        while True:
+            try:
+                answer = int(input("Your choice (1-4): "))
+                if answer in range(1, 5):
+                    return answer == self.correct_answer
+                else:
+                    print("Please enter a valid choice between 1 and 4.")
+            except ValueError:
+                print("Invalid input. Please enter a number.")
+
+def main():
+    questions = [
+        Question("What is the capital of France?", ["Berlin", "Madrid", "Paris", "Rome"], 3),
+        Question("Which planet is known as the Red Planet?", ["Earth", "Mars", "Venus", "Jupiter"], 2),
+        Question("What is the largest mammal?", ["Elephant", "Whale", "Giraffe", "Hippopotamus"], 2),
+        Question("Who wrote 'Romeo and Juliet'?", ["Shakespeare", "Hemingway", "Tolstoy", "Dickens"], 1),
+    ]
+
+    score = 0
+    print("\nWelcome to the Ultimate Quiz Game!\n")
+    time.sleep(1)
+
+    for q in questions:
+        print("\n-------------------------")
+        correct = q.ask()
+        if correct:
+            print("Correct!")
+            score += 1
+        else:
+            print("Wrong!")
+
+        time.sleep(1)
+
+    print("\n-------------------------")
+    print(f"Quiz finished! Your score: {score}/{len(questions)}")
+    if score == len(questions):
+        print("Wow! Perfect score! You're a quiz master!")
+    elif score > len(questions) // 2:
+        print("Great job! You did well.")
+    else:
+        print("Better luck next time!")
+
+if __name__ == "__main__":
+    main()
